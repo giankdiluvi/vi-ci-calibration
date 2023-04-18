@@ -1,12 +1,7 @@
 # Title
 Gian Carlo Diluvi \
-STAT 548 qualifying paper \
-UBC Statistics \
-Supervisor: [Name](link) \
-Original paper: Last, First and Last First. (year).
-Title.
-*Journal, vol*(issue), p0&ndash;pf.
-[Link:](link)
+STAT 520C final project \
+UBC Statistics
 
 
 ## Roadmap
