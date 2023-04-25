@@ -66,7 +66,7 @@ intervals with consistently low coverage.
     correspond to $\alpha=0.05$, i.e., 95\% credibility intervals.}
     \label{fig:cauchy}
 \end{figure}
-
+\FloatBarrier
 
 
 \subsection{Logistic regression} \label{subsec:logreg}
@@ -87,8 +87,8 @@ a simple numerical approximation to the integral.
 The posterior distribution is unimodal and symmetri,
 and thus should be well-approximated by a Gaussian,
 but it has a slightly heavy right tail.
-We also ran Hamiltonian Monte Carlo for 10,000 iterations
-using Stan to assess the fidelity of
+We also ran Hamiltonian Monte Carlo \citep{neal2011hmc}
+for 10,000 iterations using Stan \citep{pystan} to assess the fidelity of
 $q_\mathrm{rev}$ and $q_\mathrm{fwd}$.
 \cref{fig:logreg_p} shows the resulting densities.
 The forward KL-optimal approximation seems to be the better fit,

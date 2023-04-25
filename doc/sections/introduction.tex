@@ -19,8 +19,7 @@ in this sense as a consequence of the Bernstein-von Mises theorem.
 Another way to assess the quality of an interval is via its
 \emph{Bayesian} coverage, i.e.,
 the proportion of times the interval contains the parameter
-value that generated the data and itself is a realization from
-the prior distribution.
+value (itself sampled from the prior) that generated the data.
 The Bayesian coverage of an interval leverages the fact that the prior
 distribution quantifies the uncertainty around the parameter
 before observing data.
@@ -37,8 +36,8 @@ In this setting,
 the resulting credible intervals are approximate
 and their Bayesian coverage need not be exact.
 
-Variational inference (VI) is a scalable framework
-to learn posterior distributions.
+Variational inference \citep[VI][]{jordan1999vi,wainwright2008vi}
+is a scalable framework to learn posterior distributions.
 Succincly, VI casts inference as an optimization problem
 by approximating the posterior with an element of
 a family of candidate approximations that minimizes some divergence
@@ -56,7 +55,7 @@ for many common divergences.
 
 In this work, I study the Bayesian coverage of
 credible intervals of Gaussian VI when minimizing
-the Kullback-Leibler (KL) divergence.
+the Kullback-Leibler divergence \citep[KL][]{kl}.
 Specifically, I focus on the impact of minimizing the reverse KL
 (from approximation to target) versus the forward KL (from target to approximation).
 The former is known to produce approximations that underestimate

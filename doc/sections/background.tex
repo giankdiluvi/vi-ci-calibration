@@ -17,7 +17,7 @@ parametrized by $\lambda$.
 In the remainder of this work,
 $\mcQ$ will be the family of Gaussian distributions:
 $\lambda=(\mu,\Sigma)$ and
-$\mcQ=\{q_\lambda=\distNorm(\mu,\Sigma) \given \mu\in\reals^d,\Sigma\geq 0\}$.
+$\mcQ=\{q_\lambda=\distNorm(\mu,\Sigma) \given \mu\in\reals^d,\Sigma\succ 0\}$.
 The approximation $q^\star$ is chosen to minimize some divergence
 $\mathrm{D}$ from elements in $\mcQ$ to $\pi$:
 \[ \label{eq:vi}
@@ -26,7 +26,6 @@ $\mathrm{D}$ from elements in $\mcQ$ to $\pi$:
 \]
 Approximate credible intervals can be generated
 by taking the quantiles of the optimal approximation $q^\star$.
-
 The choice of divergence can influence
 the geometry of the optimization problem as well as
 the characteristics of the optimal approximation $q^\star$.
@@ -41,7 +40,8 @@ known as the \emph{reverse} KL:
 In the last equation,
 I factorized the evidence $Z$ out of the integral
 and defined $\mcE(q,p)$ as the (negative) ``unnormalized'' KL.
-$\mcE(q,p)$ is known as the Evidence Lower BOund (ELBO).
+$\mcE(q,p)$ is known as the Evidence Lower BOund
+\citep[ELBO][]{blei2017vi}.
 Since $Z$ does not depend on $\lambda$,
 minimizing the KL divergence is equivalent to maximizing the ELBO.
 
@@ -55,27 +55,26 @@ the variational approximation $q_\lambda$:
 \]
 We can approximate the ELBO gradient via Monte Carlo
 samples from $q$ within a stochastics gradient ascent routine
-(black box vi cite).
+\citep{ranganath2014bbvi}.
 
 The minimizer of the reverse KL, $q_\mathrm{rev}(x)$,
 is known to underestimate the variance of $\pi(x)$
-(cite ML book).
+\citep[][Section~10.1.2]{bishop2006pattern}.
 One way to address this is to minimize the \emph{forward} KL
 divergence instead, i.e.,
 the KL divergence from the posterior $\pi$ to the approximation:
 \[
-  \kl[fwd]{\pi}{q}=\int \pi(x)\log\frac{\pi(x)}{q(x)}.
+  \kl[fwd]{\pi}{q}=\int \pi(x)\log\frac{\pi(x)}{q(x)},\qquad
+  \grad_\lambda \kl[fwd]{q}{\pi}=-\int \pi(x) \grad_\lambda q(x)\,\dee x.
 \]
 Common folk wisdom in the machine learning community suggests
 that $\kl[fwd]{\pi}{q}$ produces better approximations,
 $q_\mathrm{fwd}(x)$,
 but it is considerably more difficult to optimize.
 For example, its gradient can be expressed as
-an expectation but under the intractable $\pi$:
-\[
-  \grad_\lambda \kl[fwd]{q}{\pi}=-\int \pi(x) \grad_\lambda q(x)\,\dee x.
-\]
-Importance sampling can be numerically unstable for high-dimensional
-$\pi$, so recent work has attempted to estimate this gradient
-by running an MCMC chain in parallel to produce approximate samples from $\pi$
-(cite Markovian score climbing).
+an expectation but under the intractable $\pi$.
+%Importance sampling to approximate the gradient
+%can be numerically unstable for high-dimensional $\pi$,
+%so recent work has attempted to estimate this gradient
+%by instead running an MCMC chain in parallel to produce approximate samples from $\pi$
+%\citep{naesseth2020markovian}.
