@@ -56,7 +56,14 @@ intervals with consistently low coverage.
     \caption{CI coverage}
     \label{fig:cauchy_coverage}
     \end{subfigure}
-    \caption{Results on the Cauchy distribution.}
+    \caption{Results on the Cauchy distribution.
+    Log densities of the posterior and
+    the two approximations (\cref{fig:cauchy_lp}).
+    Exact and approximate credible interval limits (\cref{fig:cauchy_lims})
+    and resulting coverage (\cref{fig:cauchy_coverage})
+    for different credibility levels $1-\alpha$.
+    The dotted black lines in \cref{fig:cauchy_lims,fig:cauchy_coverage}
+    correspond to $\alpha=0.05$, i.e., 95\% credibility intervals.}
     \label{fig:cauchy}
 \end{figure}
 
@@ -70,7 +77,8 @@ we observe $N=100$ observations from the model
 \[
   Y_n\sim\distBern(p_n),\quad
   p_n=\frac{1}{1+\exp\{-\beta_0-\beta_1 x_1\}},\quad
-  x_n\sim\distNorm(-1,1.5^2).
+  x_n\sim\distNorm(-1,1.5^2),\quad
+  n=1,\dots,N.
 \]
 We set $\beta=(2,3)$ and assumed that $\beta_0=2$ is known,
 so we only approximate the posterior distribution of $\beta_1$.
@@ -125,6 +133,16 @@ in the lower limit of the interval in \cref{fig:logreg_lims}.
     \caption{CI coverage}
     \label{fig:logreg_coverage}
     \end{subfigure}
-    \caption{Results on the logistic regression example.}
+    \caption{Results on the logistic regression example.
+    Densities (\cref{fig:logreg_p}) and log densities (\cref{fig:logreg_lp})
+    of the posterior, the two variational approximations,
+    and a histogram of the MCMC samples in the former.
+    The black dotted line in \cref{fig:logreg_p}
+    indicates the true value of the parameter.
+    Exact and approximate credible interval limits (\cref{fig:logreg_lims})
+    and resulting coverage (\cref{fig:logreg_coverage})
+    for different credibility levels $1-\alpha$.
+    The dotted black lines in \cref{fig:logreg_lims,fig:logreg_coverage}
+    correspond to $\alpha=0.05$, i.e., 95\% credibility intervals.}
     \label{fig:logreg}
 \end{figure}
