@@ -1,0 +1,34 @@
+% !TEX root = ../main.tex
+\section{Conclusion} \label{sec:conclusion}
+
+In this work,
+I studied the Bayesian coverage of credible intervals
+obtained through Gaussian variational approximations that minimize
+either the forward or the reverse KL divergence.
+As expected,
+the forward KL-optimal approximations $q_\mathrm{fwd}$
+tend to have a higher variance than their reverse KL counterparts,
+$q_\mathrm{bwd}$.
+Both of the posterior distributions that I studied have tails heavier
+than a Gaussian, and so naturally $q_\mathrm{fwd}$ produced intervals
+with coverage closer to the nominal value $1-\alpha$.
+
+Note that the concept of Bayesian coverage by definition
+only measures the extent to which we are able to approximate
+the posterior distribution.
+A visual interpretation of this can be seen in \cref{fig:logreg_p}:
+approximations with good Bayesian coverage are those that
+approximate the posterior $\pi(x)$ well,
+regardless of the ``true'' value of the parameter $\beta_1$.
+A very peaky distribution centered around $\beta_1$
+would likely have worse Bayesian coverage than any of the
+approximations produced in that example.
+This is offset by the fact that,
+as the sample size grows,
+the posterior concentrates around the maximum likelihood estimator,
+which under regularity conditions is consistent.
+
+Finally, in this work we used a considerably basic variational family.
+More expressive families will produce better approximations
+that in turn result in intervals with better Bayesian coverage,
+even if we minimize the reverse instead of the forward KL divergence.
