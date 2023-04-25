@@ -1,2 +1,77 @@
 % !TEX root = ../main.tex
-\section{Background} \label{sec:bckg}
+\section{Background: Variational Inference} \label{sec:bckg}
+
+Let $\pi(x)$ be a density that we are interested in approximating.
+In the Bayesian setting, $\pi(x)=p(x)/Z$
+where $p(x)=\mathrm{prior}(x)\mcL(y\given x)$ combines the
+prior and likelihood (given data $y$) and $Z=\int p(\tx)\dee\tx$
+is the (unknown) normalizing constant (or evidence).
+We assume that data have already been observed and we are just interested
+in estimating $\pi$ as a function of $x$,
+so we omit $y$ from notation.
+
+Variational inference refers to approximating $\pi$
+with an element $q^\star\in\mcQ=\{q_\lambda \given \lambda\in\Lambda\}$,
+where $\mcQ$ is a family of probability distributions
+parametrized by $\lambda$.
+In the remainder of this work,
+$\mcQ$ will be the family of Gaussian distributions:
+$\lambda=(\mu,\Sigma)$ and
+$\mcQ=\{q_\lambda=\distNorm(\mu,\Sigma) \given \mu\in\reals^d,\Sigma\geq 0\}$.
+The approximation $q^\star$ is chosen to minimize some divergence
+$\mathrm{D}$ from elements in $\mcQ$ to $\pi$:
+\[ \label{eq:vi}
+  q_\star=q_{\lambda^\star},\quad
+  \lambda^\star=\argmin_{\lambda\in\Lambda}\divergence{}{q_\lambda}{\pi}.
+\]
+The choice of divergence can influence
+the geometry of the optimization problem as well as
+the characteristics of the optimal approximation $q^\star$.
+Arguably, the most popular choice of divergence is
+the Kullback-Leibler divergence from $q$ to $\pi$,
+known as the \emph{reverse} KL:
+\[ \label{eq:elbo}
+  \kl[rev]{q}{\pi}=\int q(x)\log\frac{q(x)}{\pi(x)}\,\dee x
+  =\int q(x)\log\frac{q(x)}{p(x)}\,\dee x+Z
+  := -\mcE(q,p)+Z.
+\]
+In the last equation,
+I factorized the evidence $Z$ out of the integral
+and defined $\mcE(q,p)$ as the (negative) ``unnormalized'' KL.
+$\mcE(q,p)$ is known as the Evidence Lower BOund (ELBO).
+Since $Z$ does not depend on $\lambda$,
+minimizing the KL divergence is equivalent to maximizing the ELBO.
+
+We can solve this optimization problem
+through the use of gradient-based optimization algorithms.
+Specifically, the gradient of the ELBO is an expectation under
+the variational approximation $q_\lambda$:
+\[ \label{eq:elbo_grad}
+  \grad_\lambda \mcE(q,p)
+  =-\int q(x) \log\frac{q(x)}{p(x)} \grad_\lambda q_\lambda(x)\,\dee x.
+\]
+We can approximate the ELBO gradient via Monte Carlo
+samples from $q$ within a stochastics gradient ascent routine
+(black box vi cite).
+
+The minimizer of the reverse KL, $q_\mathrm{rev}(x)$,
+is known to underestimate the variance of $\pi(x)$
+(cite ML book).
+One way to address this is to minimize the \emph{forward} KL
+divergence instead, i.e.,
+the KL divergence from the posterior $\pi$ to the approximation:
+\[
+  \kl[fwd]{\pi}{q}=\int \pi(x)\log\frac{\pi(x)}{q(x)}.
+\]
+Common folk wisdom in the machine learning community suggests
+that $\kl[fwd]{\pi}{q}$ produces better approximations,
+but it is considerably more difficult to optimize.
+For example, its gradient can be expressed as
+an expectation but under the intractable $\pi$:
+\[
+  \grad_\lambda \kl[fwd]{q}{\pi}=-\int \pi(x) \grad_\lambda q(x)\,\dee x.
+\]
+Importance sampling can be numerically unstable for high-dimensional
+$\pi$, so recent work has attempted to estimate this gradient
+by running an MCMC chain in parallel to produce approximate samples from $\pi$
+(cite Markovian score climbing).
