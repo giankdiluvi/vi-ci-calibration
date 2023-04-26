@@ -24,15 +24,17 @@ $\pi(x)=(\pi(1+x^2))^{-1}$.
 This example was chosen because it gives us access to exact
 credible intervals and also because of its heavy tails,
 which should encourage the reverse KL-optimal
-approximation to severly underestimate the variance
+approximation to severely underestimate the variance
 and viceversa with the forward KL-optimal approximation.
 This is seen in \cref{fig:cauchy_lp},
 where the tails of $q_\mathrm{fwd}$ are a better
 approximation to those of $\pi$.
 \cref{fig:cauchy_lims,fig:cauchy_coverage}
-show the limits and resulting coverage of each approximation.
+show credible interval limits
+and resulting coverage of each approximation
+for different credibility values $1-\alpha$.
 As expected, the $q_\mathrm{fwd}$ tends to have better coverage,
-especially for large credibility values.
+especially for small $\alpha$.
 Specifically, for $\alpha=0.05$
 the coverage is nearly exact.
 On the other hand, $q_\mathrm{rev}$ produces
@@ -85,11 +87,12 @@ We set $\beta=(2,3)$ and assumed that $\beta_0=2$ is known,
 so we only approximate the posterior distribution of $\beta_1$.
 We estimated the normalizing constant $Z$ using
 a simple numerical approximation to the integral.
-The posterior distribution is unimodal and symmetri,
+The posterior distribution is unimodal and symmetric,
 and thus should be well-approximated by a Gaussian,
 but it has a slightly heavy right tail.
 We also ran Hamiltonian Monte Carlo \citep{neal2011hmc}
-for 10,000 iterations using Stan \citep{pystan} to assess the fidelity of
+for 10,000 iterations using Stan \citep{pystan}
+to further assess the fidelity of
 $q_\mathrm{rev}$ and $q_\mathrm{fwd}$.
 \cref{fig:logreg_p} shows the resulting densities.
 The forward KL-optimal approximation seems to be the better fit,
@@ -102,11 +105,11 @@ and by the MCMC samples,
 but the heavier right tail results in
 credible intervals with smaller lower limits,
 as seen in \cref{fig:logreg_lims}.
-All methodologies result in intervals with smaller-than-nominal coverage,
+All methodologies result in intervals with smaller-than-nominal Bayesian coverage,
 although $q_\mathrm{fwd}$ does have the coverage closest to nominal
 for credibility values larger than 0.05; see \cref{fig:logreg_coverage}.
 This is potentially due to the slight over correction
-in the lower limit of the interval in \cref{fig:logreg_lims}.
+in the lower limit of the interval seen in \cref{fig:logreg_lims}.
 
 
 \begin{figure}[ht]

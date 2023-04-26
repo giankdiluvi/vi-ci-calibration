@@ -17,7 +17,8 @@ parametrized by $\lambda$.
 In the remainder of this work,
 $\mcQ$ will be the family of Gaussian distributions:
 $\lambda=(\mu,\Sigma)$ and
-$\mcQ=\{q_\lambda=\distNorm(\mu,\Sigma) \given \mu\in\reals^d,\Sigma\succ 0\}$.
+$\mcQ=\{q_\lambda=\distNorm(\mu,\Sigma) \given
+\mu\in\reals^d,0\prec\Sigma\in\reals^{d\times d}\}$.
 The approximation $q^\star$ is chosen to minimize some divergence
 $\mathrm{D}$ from elements in $\mcQ$ to $\pi$:
 \[ \label{eq:vi}
@@ -54,7 +55,7 @@ the variational approximation $q_\lambda$:
   =-\int q(x) \log\frac{q(x)}{p(x)} \grad_\lambda q_\lambda(x)\,\dee x.
 \]
 We can approximate the ELBO gradient via Monte Carlo
-samples from $q$ within a stochastics gradient ascent routine
+samples from $q$ within a stochastic gradient ascent routine
 \citep{ranganath2014bbvi}.
 
 The minimizer of the reverse KL, $q_\mathrm{rev}(x)$,
